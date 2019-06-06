@@ -2,7 +2,7 @@
 - name: "Ensure aide is installed"
   package:
     name: "{{ aide_pkg }}"
-    state: "installed"
+    state: "present"
   retries: "3"
   register: "aide_installed"
   until: "aide_installed is succeeded"
@@ -52,7 +52,7 @@
     day: "{{ aide_cron_sched_day }}"
     month: "{{ aide_cron_sched_mon }}"
     weekday: "{{ aide_cron_sched_wkd }}"
-    job: "{{ aide_path.stdout }} --check"
+    job: "{{ aide_path.stdout }} -c {{ aide_conf_path }} --check"
   when:
     - "aide_cron_email_notify_recipients | length < 1"
     - "aide_cron_schedule_check"
@@ -66,6 +66,7 @@
 - name: "Ensure aide check is setup in crontab - With Email Report"
   cron:
     name: "{{ aide_cronjob_name }}"
+    cron_file: /etc/crontab
     backup: "yes"
     user: "root"
     state: "present"
@@ -74,7 +75,7 @@
     day: "{{ aide_cron_sched_day }}"
     month: "{{ aide_cron_sched_mon }}"
     weekday: "{{ aide_cron_sched_wkd }}"
-    job: "{{ aide_path.stdout }} --check | /usr/bin/mail -s 'AIDE Report - $HOSTNAME' {{ aide_cron_email_notify_recipients|join(',') }}"
+    job: "REPORT=$(echo 'Subject: AIDE Report - '$(uname -n); {{ aide_path.stdout }} -c {{ aide_conf_path }} --check); echo \"$REPORT\" | grep 'AIDE found differences between database and filesystem!!' && echo \"$REPORT\" | sendmail -f serhii@3dlook.me {{ aide_cron_email_notify_recipients|join(',') }}"
   when:
     - "aide_cron_email_notify_recipients | length > 0"
     - "aide_cron_schedule_check"
@@ -104,7 +105,7 @@
     - "not aide_cron_schedule_check"
 
 - name: "Update aide database"
-  command: "{{ aide_path.stdout }} -u"
+  command: "{{ aide_path.stdout }} -c {{ aide_conf_path }} -u"
   register: "aide_update"
   failed_when: "aide_update.rc > 7"
   when:
