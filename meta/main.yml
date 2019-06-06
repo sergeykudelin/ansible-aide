@@ -1,8 +1,7 @@
 galaxy_info:
   role_name: "aide"
-  author: "Andrew J. Huffman"
+  author: "Sergey Kudelin"
   description: "An Ansible role to install, configure, and schedule AIDE."
-  company: "Red Hat"
 #  company: your company (optional)
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -134,6 +133,7 @@ galaxy_info:
   #  - vivid
      - "wily"
      - "xenial"
+     - "bionic"
   #- name: SLES
   #  versions:
   #  - all
