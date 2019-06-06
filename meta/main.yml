@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: "aide"
   author: "Sergey Kudelin"
-  description: "An Ansible role to install, configure, and schedule AIDE."
+  description: "An Ansible role to install, configure, and schedule AIDE. Based on ahuffman.aide"
 #  company: your company (optional)
 
   # If the issue tracker for your role is not on github, uncomment the
