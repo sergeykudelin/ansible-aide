@@ -93,11 +93,12 @@ The default is to setup an 'aide --check' in crontab.  Should you wish to change
 - name: "Install and configure aide"
   hosts: "servers"
   roles:
-     - "ahuffman.aide"
+     - "sergeykudelin.aide"
 ```
 
 ## License
 [MIT](LICENSE)
 
 ## Author Information
-[Andrew J. Huffman](https://github.com/ahuffman)
+Main contributor [Andrew J. Huffman](https://github.com/ahuffman)
+Current owner [Sergey Kudelin] (https://github.com/sergeykudelin)
