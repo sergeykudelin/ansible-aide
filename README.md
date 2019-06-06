@@ -1,4 +1,4 @@
-# ahuffman.aide
+# Based on ahuffman.aide
 
 ## Description
 An Ansible role to install, configure, and schedule AIDE.
