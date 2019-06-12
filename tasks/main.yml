@@ -39,6 +39,9 @@
     src: "aide.conf.j2"
     dest: "{{ aide_conf_path }}"
     validate: "{{ aide_path.stdout }} -D -c %s"
+  notify:
+    - "Initialize aide database"
+    - "Move new aide database into place"
 
 #Setup crontab
 - name: "Ensure aide check is setup in crontab - No Email Report"
